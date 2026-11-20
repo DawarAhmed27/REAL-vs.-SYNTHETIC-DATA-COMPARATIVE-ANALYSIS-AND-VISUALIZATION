@@ -1,0 +1,22 @@
+step,action,rows_or_cells_affected,reason
+0 Load,Loaded original file unchanged,12330 rows x 18 cols,Starting point; original is never modified
+1 Missing values,Checked all 18 columns; no imputation or deletion needed,0 missing cells,Source reports no missing values and the check confirms it; imputing would only invent data
+2 Duplicates,"Dropped exact duplicate rows, kept first copy",125 rows removed,Identical rows add no information and would make the later exact-match privacy check against synthetic data ambiguous
+3a Consistency,Removed sessions with zero page views in total,6 rows removed,A session without any page view is contradictory and makes per-page ratios undefined
+3b Consistency,Kept rows with pages > 0 but duration = 0; no change,953 cell-pairs,"Single-page visits have no measurable time on page, so this is expected, not an error"
+3c Consistency,Kept rows with BounceRates > ExitRates; no change,175 rows,Cannot be verified as errors from the data alone; removing them would be arbitrary. Flagged as a limitation
+4 Outliers,Capped ProductRelated at the 99.5th percentile (282.0),61 values,"Extreme tail likely reflects idle or bot sessions and would dominate means, KDEs and generator fitting; rows are kept"
+4 Outliers,Capped ProductRelated_Duration at the 99.5th percentile (11246.2),61 values,"Extreme tail likely reflects idle or bot sessions and would dominate means, KDEs and generator fitting; rows are kept"
+4 Outliers,Capped Administrative_Duration at the 99.5th percentile (1179.0),61 values,"Extreme tail likely reflects idle or bot sessions and would dominate means, KDEs and generator fitting; rows are kept"
+4 Outliers,Capped Informational_Duration at the 99.5th percentile (1005.4),61 values,"Extreme tail likely reflects idle or bot sessions and would dominate means, KDEs and generator fitting; rows are kept"
+4 Outliers,"Kept all other numeric columns uncapped (counts, rates, PageValues, SpecialDay)",0 changes,"Their IQR 'outliers' are real non-zero behaviour in zero-inflated columns, not errors"
+5a Labels,Renamed 'June' to 'Jun' in Month,288 raw rows,Make month labels consistent (3 letters)
+5b Types,Converted Weekend and Revenue from bool to labelled categories,2 columns,Readable labels for charts and Power BI slicers; avoids True/False being treated as numbers
+5c Types,"Converted OperatingSystems, Browser, Region, TrafficType from int to labelled categories",4 columns,"They are anonymous codes, not quantities; averaging them would be meaningless"
+5d Types,"Kept page counts as integers and durations, rates, PageValues, SpecialDay as floats",10 columns,Matches what each variable measures
+6 Derived,Created Total_Pages,12199 rows,Overall session size across the three page types
+6 Derived,Created Total_Duration,12199 rows,Total time spent in the session (seconds)
+6 Derived,Created Avg_Time_Per_Page,12199 rows,Engagement intensity: seconds per page
+6 Derived,Created Product_Page_Share,12199 rows,How product-focused the session was (0 to 1)
+6 Derived,Created Quarter,12199 rows,Groups the 10 months into quarters for coarser trend analysis
+6 Derived,Created Session_Length_Band,12199 rows,Short / Medium / Long sessions (tertiles of Total_Pages) for group comparisons

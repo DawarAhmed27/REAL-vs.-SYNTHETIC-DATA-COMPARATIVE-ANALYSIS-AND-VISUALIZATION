@@ -4,9 +4,9 @@ Phases are implemented one at a time. Status is updated as work lands.
 
 | # | Phase | Deliverable | Marks | Status |
 |---|-------|-------------|-------|--------|
-| 0 | Repo setup, README skeleton, report document | Repo skeleton, `report/` | - | In progress |
-| 1 | Dataset selection and documentation | Dataset documentation page | 15 (with 2) | Not started |
-| 2 | Exploration and preprocessing | Notebook 01, cleaned CSV, preprocessing log | 15 (with 1) | Not started |
+| 0 | Repo setup, README skeleton, report document | Repo skeleton, `report/` | - | Done |
+| 1 | Dataset selection and documentation | Online Shoppers Purchasing Intention chosen; approval email sent, instructor reply pending | 15 (with 2) | In progress |
+| 2 | Exploration and preprocessing | Notebook 01, cleaned CSV, preprocessing log, report sections 2-3 | 15 (with 1) | Done |
 | 3 | Synthetic data generation | Notebook 02, synthetic CSV | 19 | Not started |
 | 4 | Synthetic data quality evaluation | Notebook 03 | 10 | Not started |
 | 5 | Scenarios 1-3 (Real, Synthetic, Combined) | Notebooks 04-06, combined CSV, figures | 21 | Not started |
