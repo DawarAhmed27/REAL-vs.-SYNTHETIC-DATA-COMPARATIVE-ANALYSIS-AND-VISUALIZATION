@@ -1,0 +1,10 @@
+pattern,group,value,n
+ExitRates ~ PageValues within visitor type (Spearman rho),New_Visitor,-0.2245135946389603,1693
+ExitRates ~ PageValues within visitor type (Spearman rho),Other,-0.4672599109104171,81
+ExitRates ~ PageValues within visitor type (Spearman rho),Returning_Visitor,-0.3234523878634766,10425
+Total_Pages ~ PageValues within outcome (Spearman rho),No_Purchase,0.3668883398877394,10291
+Total_Pages ~ PageValues within outcome (Spearman rho),Purchase,-0.2237421452365126,1908
+Purchase-rate gap New minus Returning visitors (pp) by quarter,Q1,6.656395989213415,2041
+Purchase-rate gap New minus Returning visitors (pp) by quarter,Q2,18.051663797822492,3611
+Purchase-rate gap New minus Returning visitors (pp) by quarter,Q3,10.071053444547422,1313
+Purchase-rate gap New minus Returning visitors (pp) by quarter,Q4,6.606336723515696,5234

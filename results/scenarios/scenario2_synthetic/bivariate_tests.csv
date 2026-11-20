@@ -1,0 +1,15 @@
+test,pair,statistic,effect,p-value
+correlation,ProductRelated ~ ProductRelated_Duration,Pearson r = 0.666; Spearman rho = 0.743,0.7433144308218932,0.0
+correlation,BounceRates ~ ExitRates,Pearson r = 0.519; Spearman rho = 0.447,0.446782057279594,0.0
+correlation,ExitRates ~ PageValues,Pearson r = -0.149; Spearman rho = -0.206,-0.20557964887709654,1.4975973116435568e-116
+correlation,Total_Pages ~ PageValues,Pearson r = 0.142; Spearman rho = 0.259,0.2594718979421089,6.962813615290289e-187
+Mann-Whitney U,PageValues by Revenue,"median purchase = 8.54, no purchase = 0",0.3017901438556547,1.376748338813814e-128
+Mann-Whitney U,ExitRates by Revenue,"median purchase = 0.0197, no purchase = 0.0266",-0.17482235757093723,1.820587472097541e-31
+Mann-Whitney U,Total_Pages by Revenue,"median purchase = 25, no purchase = 19",0.14077537506950843,5.5092110344369055e-21
+Mann-Whitney U,Total_Duration by Revenue,"median purchase = 865, no purchase = 589",0.15137934056463687,5.259145255505921e-24
+chi-square,VisitorType x Revenue,"chi2 = 15.5, dof = 2",0.035645310055082,0.00043076309077361244
+chi-square,Quarter x Revenue,"chi2 = 18.6, dof = 3",0.039034268082463096,0.0003327251217833828
+chi-square,Weekend x Revenue,"chi2 = 0.2, dof = 1",0.003638542803096667,0.6877769664953453
+chi-square,Session_Length_Band x Revenue,"chi2 = 74.6, dof = 2",0.07821009939647,6.261408378055308e-17
+chi-square,Month x Revenue,"chi2 = 34.7, dof = 9",0.05332950555319791,6.74493958578906e-05
+Kruskal-Wallis,Total_Pages by VisitorType,H = 21.2,0.0017369885916313688,2.5068626839246743e-05

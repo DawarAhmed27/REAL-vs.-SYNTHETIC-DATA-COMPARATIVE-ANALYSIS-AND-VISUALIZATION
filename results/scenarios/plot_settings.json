@@ -1,0 +1,21 @@
+{
+ "x_axis_limit (real p99)": {
+  "Administrative": 14.0,
+  "Administrative_Duration": 839.1000000000022,
+  "Informational": 6.0,
+  "Informational_Duration": 722.5276000000001,
+  "ProductRelated": 221.02000000000044,
+  "ProductRelated_Duration": 8705.654501460029,
+  "BounceRates": 0.2,
+  "ExitRates": 0.2,
+  "PageValues": 86.12725182760009,
+  "SpecialDay": 1.0,
+  "Total_Pages": 232.0,
+  "Total_Duration": 9205.228383543816,
+  "Avg_Time_Per_Page": 175.71709523761905,
+  "Product_Page_Share": 1.0
+ },
+ "purchase_rate_axis_max": 35.0,
+ "bubble_x_max": 70.0,
+ "random_seed_for_samples": 42
+}

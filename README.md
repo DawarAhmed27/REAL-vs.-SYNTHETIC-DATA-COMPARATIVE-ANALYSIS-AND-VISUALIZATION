@@ -27,6 +27,8 @@ The synthetic data (Gaussian Copula, seed 42) is evaluated honestly, including i
 ```
 data/            original (never modified), cleaned, synthetic, combined CSVs
 notebooks/       Jupyter notebooks, run in numeric order
+src/             scenario_lib.py: shared analysis code and plot settings for notebooks 04-06
+results/         tables saved by the notebooks (quality/, scenarios/)
 figures/         Python figures: real/, synthetic/, combined/, comparative/
 powerbi/         .pbix report, theme and PDF export
 report/          Final report source
@@ -35,7 +37,7 @@ docs/            Project plan and notes
 
 ## Environment
 - Python (Jupyter in VS Code); recorded run used Python 3.13  |  Power BI Desktop: _TBD_
-- Notebooks 01-03 were run with pandas 2.3.3, NumPy 2.5.3, Matplotlib 3.11.2, seaborn 0.13.2, SciPy 1.18.1, SDV 2.2.0 (RDT 2.1.0, copulas 0.15.0)
+- Notebooks 01-06 were run with pandas 2.3.3, NumPy 2.5.3, Matplotlib 3.11.2, seaborn 0.13.2, SciPy 1.18.1, SDV 2.2.0 (RDT 2.1.0, copulas 0.15.0)
 - Libraries: see `requirements.txt` (pandas, NumPy, Matplotlib, Seaborn, SciPy, scikit-learn, SDV)
 - Fixed random seed: 42
 
@@ -46,8 +48,16 @@ docs/            Project plan and notes
    - `01_exploration_preprocessing.ipynb`: exploration, cleaning, derived attributes, preprocessing log (done)
    - `02_synthetic_generation.ipynb`: synthetic data with SDV Gaussian Copula (hurdle + log scale), bootstrap and independent baselines, validity checks, reproducibility check (done)
    - `03_quality_evaluation.ipynb`: real vs. synthetic quality: descriptive statistics, histogram/KDE, box and violin plots, categorical bars, correlation heatmaps, KS / Wasserstein / JSD / chi-square / Cramér's V, key relationships, exact-duplicate privacy check, scorecard (done; outputs in `results/quality/` and `figures/synthetic/quality/`)
+   - `04_scenario1_real.ipynb`, `05_scenario2_synthetic.ipynb`: the identical univariate, bivariate, multivariate and trend analysis of the real and the synthetic data, with 6 key findings each (done)
+   - `06_scenario3_combined.ipynb`: appends both datasets with a `Data_Source` column (`data/combined/combined_dataset.csv`), group comparison, relationship and outlier analysis, representation and bias check (done)
+   - Notebooks 04-06 import `src/scenario_lib.py`, which holds every function and plot setting so that the three scenarios are analysed identically
    - Further notebooks are added as the phases are completed
 4. Open `powerbi/*.pbix` in Power BI Desktop and refresh the data sources to point at `data/`.
+
+## Key findings so far (Phase 5, the three scenarios)
+- Real data (Scenario 1): purchase rate 15.64%; PageValues is the clearest signal (median 16.8 for buyers, 0 otherwise); conversion is strongly seasonal (November 25.5%, May 11.0%) and higher for new visitors (24.9% vs 14.1%) and long sessions (23.2% vs 7.0%).
+- Synthetic data (Scenario 2): traffic seasonality and category shares are reproduced, but the effects are compressed: November conversion 14.1% instead of 25.5%, new visitors 17.0% vs 13.7%, PageValues effect 0.30 instead of 0.73.
+- Combined data (Scenario 3): no new extremes (combined maxima equal the real maxima), but all purchase-signal measures land about half way between real and synthetic, so combining biases the effects downward (PageValues effect 28% lower, month association 45% lower) and the doubled sample size adds no real information.
 
 ## Team
 _TBD_
