@@ -1,0 +1,57 @@
+{
+  "method": "SDV GaussianCopulaSynthesizer with hurdle (zero indicator from column) and log transform of positive parts",
+  "seed": 42,
+  "n_rows": 12199,
+  "configuration": {
+    "hurdle": true,
+    "log": true,
+    "num_dist": "norm",
+    "cat_dist": "truncnorm",
+    "null_mode": "from_column"
+  },
+  "generated_columns": [
+    "Administrative",
+    "Administrative_Duration",
+    "Informational",
+    "Informational_Duration",
+    "ProductRelated",
+    "ProductRelated_Duration",
+    "BounceRates",
+    "ExitRates",
+    "PageValues",
+    "SpecialDay",
+    "Month",
+    "VisitorType",
+    "Weekend",
+    "OperatingSystems",
+    "Browser",
+    "Region",
+    "TrafficType",
+    "Revenue"
+  ],
+  "recomputed_derived_columns": [
+    "Total_Pages",
+    "Total_Duration",
+    "Avg_Time_Per_Page",
+    "Product_Page_Share",
+    "Quarter",
+    "Session_Length_Band"
+  ],
+  "session_length_band_edges_pages": [
+    12.0,
+    33.0
+  ],
+  "versions": {
+    "sdv": "2.2.0",
+    "rdt": "2.1.0",
+    "copulas": "0.15.0",
+    "numpy": "2.5.3",
+    "pandas": "2.3.3"
+  },
+  "rejected_rows_during_generation": 0,
+  "repairs": {
+    "duration set to 0 where Administrative=0": 340,
+    "duration set to 0 where Informational=0": 503,
+    "duration set to 0 where ProductRelated=0": 0
+  }
+}

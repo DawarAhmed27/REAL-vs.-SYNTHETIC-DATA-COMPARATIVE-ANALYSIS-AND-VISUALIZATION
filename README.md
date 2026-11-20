@@ -11,6 +11,7 @@ A real-world dataset is cleaned, a synthetic version is generated from it, and t
 - Source: UCI Machine Learning Repository, https://archive.ics.uci.edu/dataset/468/online+shoppers+purchasing+intention+dataset (DOI 10.24432/C5F88Q)
 - Original: 12,330 sessions x 18 attributes (10 numerical, 8 categorical), no missing values; file `data/original/online_shoppers_intention.csv` is kept unmodified
 - Cleaned: 12,199 rows x 24 columns (14 numerical, 10 categorical) in `data/cleaned/online_shoppers_cleaned.csv`
+- Synthetic: 12,199 rows x 24 columns in `data/synthetic/synthetic_online_shoppers.csv` (settings in `data/synthetic/generation_settings.json`); baselines in `data/synthetic/baselines/`
 
 > Approval of this dataset by the instructor is pending.
 
@@ -26,7 +27,7 @@ docs/            Project plan and notes
 
 ## Environment
 - Python (Jupyter in VS Code); recorded run used Python 3.13  |  Power BI Desktop: _TBD_
-- Notebook 01 was run with pandas 3.0.5, NumPy 2.5.3, Matplotlib 3.11.2, seaborn 0.13.2, SciPy 1.18.1
+- Notebooks 01-02 were run with pandas 2.3.3, NumPy 2.5.3, Matplotlib 3.11.2, seaborn 0.13.2, SciPy 1.18.1, SDV 2.2.0 (RDT 2.1.0, copulas 0.15.0)
 - Libraries: see `requirements.txt` (pandas, NumPy, Matplotlib, Seaborn, SciPy, scikit-learn, SDV)
 - Fixed random seed: 42
 
@@ -35,6 +36,7 @@ docs/            Project plan and notes
 2. Place the original dataset in `data/original/` (see the dataset section for the download link).
 3. Run the notebooks in `notebooks/` in numeric order:
    - `01_exploration_preprocessing.ipynb`: exploration, cleaning, derived attributes, preprocessing log (done)
+   - `02_synthetic_generation.ipynb`: synthetic data with SDV Gaussian Copula (hurdle + log scale), bootstrap and independent baselines, validity checks, reproducibility check (done)
    - Further notebooks are added as the phases are completed
 4. Open `powerbi/*.pbix` in Power BI Desktop and refresh the data sources to point at `data/`.
 
