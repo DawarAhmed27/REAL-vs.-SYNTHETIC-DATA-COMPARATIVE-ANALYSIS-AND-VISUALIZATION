@@ -1,0 +1,12 @@
+,Real,Synthetic,Combined
+PageValues (rank-biserial),0.726,0.302,0.526
+ExitRates (rank-biserial),0.399,0.175,0.289
+Total_Pages (rank-biserial),0.318,0.141,0.234
+Total_Duration (rank-biserial),0.344,0.151,0.256
+BounceRates (rank-biserial),0.217,0.065,0.148
+Avg_Time_Per_Page (rank-biserial),0.228,0.05,0.135
+Session_Length_Band (Cramer's V),0.185,0.078,0.132
+Month (Cramer's V),0.176,0.053,0.096
+Quarter (Cramer's V),0.137,0.039,0.087
+VisitorType (Cramer's V),0.103,0.036,0.07
+Weekend (Cramer's V),0.027,0.004,0.012
