@@ -45,7 +45,7 @@ docs/            Project plan and notes
 3. Run the notebooks in `notebooks/` in numeric order:
    - `01_exploration_preprocessing.ipynb`: exploration, cleaning, derived attributes, preprocessing log (done)
    - `02_synthetic_generation.ipynb`: synthetic data with SDV Gaussian Copula (hurdle + log scale), bootstrap and independent baselines, validity checks, reproducibility check (done)
-   - `03_quality_evaluation.ipynb`: real vs. synthetic quality: descriptive statistics, histogram/KDE and box plots, categorical bars, correlation heatmaps, KS / Wasserstein / JSD / chi-square / Cramér's V, key relationships, exact-duplicate privacy check, scorecard (done; outputs in `results/quality/` and `figures/synthetic/quality/`)
+   - `03_quality_evaluation.ipynb`: real vs. synthetic quality: descriptive statistics, histogram/KDE, box and violin plots, categorical bars, correlation heatmaps, KS / Wasserstein / JSD / chi-square / Cramér's V, key relationships, exact-duplicate privacy check, scorecard (done; outputs in `results/quality/` and `figures/synthetic/quality/`)
    - Further notebooks are added as the phases are completed
 4. Open `powerbi/*.pbix` in Power BI Desktop and refresh the data sources to point at `data/`.
 
