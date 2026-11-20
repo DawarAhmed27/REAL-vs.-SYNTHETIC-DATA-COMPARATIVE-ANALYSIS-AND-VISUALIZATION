@@ -1,0 +1,9 @@
+# Versions are pinned in Phase 2 after the environment is finalised.
+pandas
+numpy
+matplotlib
+seaborn
+scipy
+scikit-learn
+sdv
+jupyter
