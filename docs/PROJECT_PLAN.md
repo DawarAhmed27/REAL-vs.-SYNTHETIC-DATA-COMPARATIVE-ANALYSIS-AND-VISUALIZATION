@@ -8,7 +8,7 @@ Phases are implemented one at a time. Status is updated as work lands.
 | 1 | Dataset selection and documentation | Online Shoppers Purchasing Intention chosen; approval email sent, instructor reply pending | 15 (with 2) | In progress |
 | 2 | Exploration and preprocessing | Notebook 01, cleaned CSV, preprocessing log, report sections 2-3 | 15 (with 1) | Done |
 | 3 | Synthetic data generation | Notebook 02, synthetic CSV, baselines, generation settings, report section 4 | 19 | Done |
-| 4 | Synthetic data quality evaluation | Notebook 03 | 10 | Not started |
+| 4 | Synthetic data quality evaluation | Notebook 03, `results/quality/`, figures 7-12, report section 5 | 10 | Done |
 | 5 | Scenarios 1-3 (Real, Synthetic, Combined) | Notebooks 04-06, combined CSV, figures | 21 | Not started |
 | 6 | Comparative analysis | Notebook 07 | 13 | Not started |
 | 7 | Advanced analysis (3+ tasks) | Notebook 08 | 4 | Not started |

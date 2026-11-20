@@ -1,0 +1,4 @@
+dataset,rows,rows identical to a real row (all 24 cols),same on the 18 generated cols,% identical,duplicate rows inside the dataset
+Gaussian Copula (main),12199,0,0,0.0,0
+Bootstrap (baseline),12199,12199,12199,100.0,4496
+Independent (baseline),12199,0,0,0.0,0

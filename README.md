@@ -15,6 +15,14 @@ A real-world dataset is cleaned, a synthetic version is generated from it, and t
 
 > Approval of this dataset by the instructor is pending.
 
+## Key findings so far (Phase 4, synthetic data quality)
+The synthetic data (Gaussian Copula, seed 42) is evaluated honestly, including its weaknesses:
+- Categorical frequencies match very well (Cramér's V < 0.025 for every column); no synthetic row is an exact copy of a real row.
+- Numerical distributions are moderately close (mean KS 0.064); the extreme tails of Informational, Informational_Duration and PageValues are cut off. Its mean KS is not better than independent sampling (0.059).
+- Numerical correlations are partly kept (mean |ΔPearson| 0.09 vs 0.22 for independent sampling) but the strongest links weaken (BounceRates-ExitRates 0.90 to 0.52).
+- Associations between categorical columns are largely lost (mean |ΔCramér's V| 0.10, maximum 0.475).
+- The purchase signal is weaker (mean PageValues of purchases 27.3 real vs. 11.0 synthetic; purchase rate 14.19% vs. 15.64%).
+
 ## Repository structure
 ```
 data/            original (never modified), cleaned, synthetic, combined CSVs
@@ -27,7 +35,7 @@ docs/            Project plan and notes
 
 ## Environment
 - Python (Jupyter in VS Code); recorded run used Python 3.13  |  Power BI Desktop: _TBD_
-- Notebooks 01-02 were run with pandas 2.3.3, NumPy 2.5.3, Matplotlib 3.11.2, seaborn 0.13.2, SciPy 1.18.1, SDV 2.2.0 (RDT 2.1.0, copulas 0.15.0)
+- Notebooks 01-03 were run with pandas 2.3.3, NumPy 2.5.3, Matplotlib 3.11.2, seaborn 0.13.2, SciPy 1.18.1, SDV 2.2.0 (RDT 2.1.0, copulas 0.15.0)
 - Libraries: see `requirements.txt` (pandas, NumPy, Matplotlib, Seaborn, SciPy, scikit-learn, SDV)
 - Fixed random seed: 42
 
@@ -37,6 +45,7 @@ docs/            Project plan and notes
 3. Run the notebooks in `notebooks/` in numeric order:
    - `01_exploration_preprocessing.ipynb`: exploration, cleaning, derived attributes, preprocessing log (done)
    - `02_synthetic_generation.ipynb`: synthetic data with SDV Gaussian Copula (hurdle + log scale), bootstrap and independent baselines, validity checks, reproducibility check (done)
+   - `03_quality_evaluation.ipynb`: real vs. synthetic quality: descriptive statistics, histogram/KDE and box plots, categorical bars, correlation heatmaps, KS / Wasserstein / JSD / chi-square / Cramér's V, key relationships, exact-duplicate privacy check, scorecard (done; outputs in `results/quality/` and `figures/synthetic/quality/`)
    - Further notebooks are added as the phases are completed
 4. Open `powerbi/*.pbix` in Power BI Desktop and refresh the data sources to point at `data/`.
 
