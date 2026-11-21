@@ -1,0 +1,11 @@
+,PC1,PC2,PC3,PC4,PC5
+Administrative,0.35,0.201,0.482,0.241,-0.194
+Administrative_Duration,0.346,0.174,0.507,0.228,-0.202
+Informational,0.276,0.521,-0.334,-0.149,-0.023
+Informational_Duration,0.276,0.517,-0.338,-0.155,-0.007
+ProductRelated,0.384,-0.107,-0.175,0.124,0.049
+ProductRelated_Duration,0.401,-0.252,-0.216,0.029,0.024
+BounceRates,-0.329,0.42,0.131,0.144,0.12
+ExitRates,-0.382,0.373,0.072,0.098,0.072
+PageValues,0.195,0.025,0.19,0.058,0.948
+SpecialDay,-0.073,-0.01,-0.385,0.891,0.003

@@ -11,6 +11,6 @@ Phases are implemented one at a time. Status is updated as work lands.
 | 4 | Synthetic data quality evaluation | Notebook 03, `results/quality/`, figures 7-12, report section 5 | 10 | Done |
 | 5 | Scenarios 1-3 (Real, Synthetic, Combined) | Notebooks 04-06, `src/scenario_lib.py`, combined CSV, figures, report sections 6-8 | 23 | Done (Power BI native charts follow in Phase 8) |
 | 6 | Comparative analysis | Notebook 07, `src/comparison_lib.py`, `results/comparison/`, figures c01-c08, report section 9 | 13 | Done in Python (Power BI Comparison page follows in Phase 8) |
-| 7 | Advanced analysis (3+ tasks) | Notebook 08 | 4 | Not started |
+| 7 | Advanced analysis (3+ tasks) | Notebook 08, `src/advanced_lib.py`, `results/advanced/`, figures a01-a06, report section 10 | 4 | Done (hypothesis tests, PCA, feature importance, clustering) |
 | 8 | Power BI dashboards and DAX | `.pbix`, PDF export | 10 | Not started |
 | 9 | Final report, README, presentation, viva prep | Report PDF, PPTX | 8 | Not started |

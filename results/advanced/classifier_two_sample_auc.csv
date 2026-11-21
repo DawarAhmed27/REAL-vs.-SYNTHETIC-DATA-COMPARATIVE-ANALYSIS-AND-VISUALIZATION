@@ -1,0 +1,4 @@
+,ROC AUC (5-fold CV)
+all columns,0.947
+numerical columns only,0.908
+categorical columns only,0.807

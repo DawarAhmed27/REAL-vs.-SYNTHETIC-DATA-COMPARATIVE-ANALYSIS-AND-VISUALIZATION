@@ -1,0 +1,5 @@
+Task,Main result
+1. Hypothesis tests,"6 of 14 numerical columns differ significantly (Mann-Whitney, Holm); 3 are practically important. 1 of 10 categorical columns differ significantly (Revenue only); none has Cramér's V of 0.1."
+2. PCA,Same overall layout; PC1 explains 43% of the real and 33% of the synthetic variance; loading similarity 0.65 to 0.99. A classifier separates the datasets with AUC 0.95.
+3. Feature importance,"PageValues is first in every model. Predicting real purchases: AUC 0.922 (trained on real), 0.832 (trained on synthetic), 0.912 (both)."
+4. Clustering,"k = 3 chosen on the real data (silhouette 0.36 real, 0.22 synthetic); cluster sizes and purchase rates differ (see 5)."

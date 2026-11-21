@@ -1,0 +1,6 @@
+k,mean centroid distance,max |share gap| real vs synthetic fit applied (pp),max |share gap| real vs synthetic own fit (pp),ARI own fit vs applied
+2,1.602,3.689,21.223,0.139
+3,2.278,7.55,39.954,0.418
+4,2.033,6.009,5.943,0.772
+5,1.98,5.41,12.001,0.652
+6,1.747,5.418,5.435,0.529

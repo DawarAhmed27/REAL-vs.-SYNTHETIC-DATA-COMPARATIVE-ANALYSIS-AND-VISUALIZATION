@@ -1,0 +1,6 @@
+component,explained variance real,explained variance synthetic (own PCA),loading cosine similarity,KS of scores (synthetic projected on real PCA),mean score real,mean score synthetic,std score real,std score synthetic
+PC1,0.432,0.33,0.989,0.046,0.0,0.234,2.08,1.669
+PC2,0.172,0.157,0.914,0.091,-0.0,0.106,1.311,1.183
+PC3,0.118,0.13,0.831,0.047,0.0,-0.098,1.086,1.105
+PC4,0.097,0.101,0.869,0.058,0.0,-0.066,0.985,1.002
+PC5,0.086,0.097,0.65,0.137,0.0,0.184,0.929,0.995
