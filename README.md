@@ -27,7 +27,7 @@ The synthetic data (Gaussian Copula, seed 42) is evaluated honestly, including i
 ```
 data/            original (never modified), cleaned, synthetic, combined CSVs
 notebooks/       Jupyter notebooks, run in numeric order
-src/             scenario_lib.py: shared analysis code and plot settings for notebooks 04-06
+src/             scenario_lib.py (shared analysis code and plot settings, notebooks 04-06) and comparison_lib.py (comparison tables, charts and Power BI export tables, notebook 07)
 results/         tables saved by the notebooks (quality/, scenarios/)
 figures/         Python figures: real/, synthetic/, combined/, comparative/
 powerbi/         .pbix report, theme and PDF export
@@ -51,6 +51,7 @@ docs/            Project plan and notes
    - `04_scenario1_real.ipynb`, `05_scenario2_synthetic.ipynb`: the identical univariate, bivariate, multivariate and trend analysis of the real and the synthetic data, with 6 key findings each (done)
    - `06_scenario3_combined.ipynb`: appends both datasets with a `Data_Source` column (`data/combined/combined_dataset.csv`), group comparison, relationship and outlier analysis, representation and bias check, and the full Scenario 1/2 analysis repeated on the pooled data (figures S3-11 to S3-23, tables `pooled_*.csv`) (done)
    - `07_comparative_analysis.ipynb`: comparison table, three-way comparison charts, side-by-side correlation matrices, summary matrix, written answers to the seven questions and the long-format tables for the Power BI Comparison page (`results/comparison/`, `figures/comparison/`) (done)
+   - Notebook 07 writes the Power BI tables to `results/comparison/powerbi_tables/` (`dim_scenario`, `rows_by_scenario` with Combined = all rows of Real and Synthetic, `stats_long`, `box_stats_long`, `histogram_bins_long`, `categorical_shares_long`, `correlation_long`, `monthly_long` with 95% intervals) and imports `src/comparison_lib.py`
    - Notebooks 04-06 import `src/scenario_lib.py`, which holds every function and plot setting so that the three scenarios are analysed identically
    - Further notebooks are added as the phases are completed
 4. Open `powerbi/*.pbix` in Power BI Desktop and refresh the data sources to point at `data/`.

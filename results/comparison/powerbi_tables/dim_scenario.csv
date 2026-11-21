@@ -1,0 +1,4 @@
+scenario,scenario_order,description
+Real,1,"Real cleaned sessions (12,199 rows)"
+Synthetic,2,"Synthetic sessions from the Gaussian copula (12,199 rows)"
+Combined,3,"Real and synthetic rows pooled (24,398 rows)"

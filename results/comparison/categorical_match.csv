@@ -1,11 +1,11 @@
-column,levels,Cramer's V,largest share gap (pp)
-Month,10,0.0175,0.6312
-Quarter,4,0.0113,0.7542
-VisitorType,3,0.0102,0.705
-Weekend,2,0.0127,1.0739
-OperatingSystems,8,0.0178,1.4263
-Browser,13,0.0138,0.5246
-Region,9,0.0213,0.4918
-TrafficType,20,0.0235,0.8935
-Session_Length_Band,3,0.0122,1.1394
-Revenue,2,0.0202,1.4509
+column,levels,chi2,p-value,Cramer's V,largest share gap (pp)
+Month,10,7.4636,0.589,0.0175,0.6312
+Quarter,4,3.1064,0.3755,0.0113,0.7542
+VisitorType,3,2.5199,0.2837,0.0102,0.705
+Weekend,2,3.9849,0.0459,0.0128,1.0739
+OperatingSystems,8,7.757,0.3545,0.0178,1.4263
+Browser,13,4.6378,0.969,0.0138,0.5246
+Region,9,11.1002,0.1961,0.0213,0.4918
+TrafficType,20,13.5131,0.8113,0.0235,0.8935
+Session_Length_Band,3,3.6323,0.1627,0.0122,1.1394
+Revenue,2,10.1184,0.0015,0.0204,1.4509
