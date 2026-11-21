@@ -2,3 +2,4 @@
 all columns,0.947
 numerical columns only,0.908
 categorical columns only,0.807
+"all columns, every column shuffled independently (relationships destroyed)",0.822

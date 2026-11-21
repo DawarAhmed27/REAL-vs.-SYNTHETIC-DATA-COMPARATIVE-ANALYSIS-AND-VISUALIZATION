@@ -65,7 +65,7 @@ def numeric_tests(real, syn):
     d = pd.DataFrame(rows).set_index("column")
     d["MWU p (Holm)"] = holm(d["MWU p"]); d["Welch p (Holm)"] = holm(d["Welch p"])
     d["significant (Holm, 5%)"] = d["MWU p (Holm)"] < 0.05
-    d["practically important"] = (d["Cohen d"].abs() >= 0.2) | (d["rank-biserial"].abs() >= 0.1)
+    d["non-negligible"] = (d["Cohen d"].abs() >= 0.2) | (d["rank-biserial"].abs() >= 0.1)
     return d
 
 
@@ -82,7 +82,7 @@ def categorical_tests(real, syn):
                      "Cramer's V": np.sqrt(chi2 / (ct.values.sum() * min(ct.shape[1] - 1, ct.shape[0] - 1))),
                      "min expected count": exp.min()})
     d = pd.DataFrame(rows).set_index("column")
-    d["p (Holm)"] = holm(d["p"]); d["significant (Holm, 5%)"] = d["p (Holm)"] < 0.05; d["practically important"] = d["Cramer's V"] >= 0.1
+    d["p (Holm)"] = holm(d["p"]); d["significant (Holm, 5%)"] = d["p (Holm)"] < 0.05; d["non-negligible"] = d["Cramer's V"] >= 0.1
     return d
 
 
@@ -139,6 +139,8 @@ def fig_pca(res, path, n=3000):
     axes[2].scatter(Zr[ir, 0], Zr[ir, 1], s=5, alpha=0.3, color=COL["Real"], label="Real")
     axes[2].scatter(Zs[is_, 0], Zs[is_, 1], s=5, alpha=0.3, color=COL["Synthetic"], label="Synthetic"); axes[2].set_title("Overlay")
     axes[2].legend(frameon=False, markerscale=3)
+    for ax, Z in ((axes[0], Zr), (axes[1], Zs)):          # share of ALL rows in the dense left group (overplotted in the scatter)
+        ax.text(0.03, 0.04, f"{100 * (Z[:, 0] < -4.5).mean():.2f}% of all rows have PC1 < -4.5", transform=ax.transAxes, fontsize=8)
     for ax in axes:
         ax.set_xlim(*lim); ax.set_ylim(*lim); ax.set_xlabel(f"PC1 ({100 * ev[0]:.1f}% of variance)")
     axes[0].set_ylabel(f"PC2 ({100 * ev[1]:.1f}% of variance)")
@@ -175,43 +177,22 @@ def design_matrix(df, columns=None):
     return X if columns is None else X.reindex(columns=columns, fill_value=0.0)
 
 
-def importance_analysis(real, syn, drop=(), repeats=10):
-    """Predict Revenue with a random forest trained on Real, Synthetic and Real + Synthetic, always evaluated on the same
-    held-out 30% of the real data (train-on-synthetic, test-on-real). Permutation importance is computed on that test set
-    and summed over the dummy columns of each categorical attribute."""
-    def to_y(d): return (d.Revenue == "Purchase").astype(int).to_numpy()
-    tr, te = train_test_split(real, test_size=0.3, stratify=real.Revenue, random_state=SEED)
-    cols = design_matrix(real).columns
-    keep = [c for c in cols if not any(c == d or c.startswith(d + "_") for d in drop)]
-    sets = {"Real": tr, "Synthetic": syn, "Real + Synthetic": pd.concat([tr, syn], ignore_index=True)}
-    Xte = design_matrix(te, cols)[keep]; yte = to_y(te); res = {}; imp = {}
-    for name, d in sets.items():
-        Xtr = design_matrix(d, cols)[keep]
-        rf = RandomForestClassifier(n_estimators=300, min_samples_leaf=5, n_jobs=-1, random_state=SEED).fit(Xtr, to_y(d))
-        p = rf.predict_proba(Xte)[:, 1]
-        res[name] = {"ROC AUC": roc_auc_score(yte, p), "average precision": average_precision_score(yte, p), "train rows": len(d)}
-        pi = permutation_importance(rf, Xte, yte, scoring="roc_auc", n_repeats=repeats, random_state=SEED, n_jobs=-1)
-        s = pd.Series(pi.importances_mean, index=keep)
-        agg = {}
-        for f in BASE_NUM + BASE_CAT:
-            if f in drop: continue
-            agg[f] = s[[c for c in keep if c == f or c.startswith(f + "_")]].sum()
-        imp[name] = pd.Series(agg)
-    res["baseline: majority class"] = {"ROC AUC": 0.5, "average precision": float(yte.mean()), "train rows": 0}
-    return pd.DataFrame(res).T, pd.DataFrame(imp), len(te)
-
-
 def fig_importance(imp, perf, path):
-    fig, axes = plt.subplots(1, 2, figsize=(13, 5), gridspec_kw={"width_ratios": [1.6, 1]})
-    order = imp["Real"].sort_values().index; y = np.arange(len(order)); colors = {"Real": COL["Real"], "Synthetic": COL["Synthetic"], "Real + Synthetic": COL["Combined"]}
-    for k, name in enumerate(["Real", "Synthetic", "Real + Synthetic"]):
-        axes[0].barh(y + (k - 1) * 0.27, imp.loc[order, name], 0.27, color=colors[name], label=f"trained on {name}")
+    names = ["Real", "Synthetic (fitted on training rows only)", "Real + Synthetic (fitted on training rows only)"]
+    short = {names[0]: "trained on Real", names[1]: "trained on Synthetic", names[2]: "trained on Real + Synthetic"}
+    colors = {names[0]: COL["Real"], names[1]: COL["Synthetic"], names[2]: COL["Combined"]}
+    fig, axes = plt.subplots(1, 2, figsize=(13.5, 5), gridspec_kw={"width_ratios": [1.6, 1]})
+    order = imp["Real"].sort_values().index; y = np.arange(len(order))
+    for k, name in enumerate(names):
+        axes[0].barh(y + (k - 1) * 0.27, imp.loc[order, name], 0.27, color=colors[name], label=short[name])
     axes[0].set_yticks(y); axes[0].set_yticklabels(order, fontsize=8); axes[0].set_xlabel("drop in ROC AUC when the attribute is shuffled (real test set)")
-    axes[0].set_title("Permutation importance for predicting Revenue"); axes[0].legend(frameon=False, fontsize=8, loc="lower right")
-    p = perf.drop(index="baseline: majority class"); axes[1].bar(p.index, p["ROC AUC"], color=[colors[i] for i in p.index])
-    axes[1].set_ylim(0.5, 1.0); axes[1].set_ylabel("ROC AUC on real test data"); axes[1].set_title("Prediction quality (train on ... , test on real)")
+    axes[0].set_title("Grouped permutation importance for predicting Revenue"); axes[0].legend(frameon=False, fontsize=8, loc="lower right")
+    p = perf.drop(index="baseline: majority class"); lab = ["Real", "Synthetic", "Real + Synthetic", "Synthetic (main;\ngenerator saw test rows)"]
+    cols = [COL["Real"], COL["Synthetic"], COL["Combined"], "#F2D3A8"]
+    axes[1].bar(range(len(p)), p["ROC AUC"], color=cols); axes[1].set_xticks(range(len(p))); axes[1].set_xticklabels(lab, fontsize=7.5)
+    axes[1].set_ylim(0.5, 1.0); axes[1].set_ylabel("ROC AUC on real test data"); axes[1].set_title("Prediction quality (train on ..., test on real)")
     for i, v in enumerate(p["ROC AUC"]): axes[1].text(i, v + 0.004, f"{v:.3f}", ha="center", fontsize=9)
-    axes[1].tick_params(axis="x", labelsize=8); fig.tight_layout(); L.save(fig, path)
+    fig.tight_layout(); L.save(fig, path)
 
 
 # ------------------------------------------------------------------------------------------ 4. clustering
@@ -269,3 +250,141 @@ def fig_clusters(res, path):
         axes[2].bar(x + (j - 1) * w, p[c], w, color=[COL["Real"], COL["Synthetic"], "#F2B27A"][j])
     axes[2].set_xticks(x); axes[2].set_xlabel("cluster"); axes[2].set_ylabel("purchase rate (%)"); axes[2].set_title("Purchase rate per cluster")
     fig.tight_layout(); L.save(fig, path)
+
+
+# ------------------------------------------------------------------------------------------ generator refit (hold-out safe)
+_GEN_NUM = ["Administrative", "Administrative_Duration", "Informational", "Informational_Duration",
+            "ProductRelated", "ProductRelated_Duration", "BounceRates", "ExitRates", "PageValues"]
+_GEN_CAT = ["Month", "VisitorType", "Weekend", "OperatingSystems", "Browser", "Region", "TrafficType", "Revenue"]
+_SPECIAL = "SpecialDay"
+_COUNT_DUR = [("Administrative", "Administrative_Duration"), ("Informational", "Informational_Duration"),
+              ("ProductRelated", "ProductRelated_Duration")]
+_GENERATED = _GEN_NUM + [_SPECIAL] + _GEN_CAT
+
+
+def generate_from(train, n, seed=SEED):
+    """Re-run the project's generator (notebook 02, final configuration D: Gaussian copula with a hurdle for zeros, log scale
+    for the positive parts, zero indicator modelled as a column) but fitted on the rows of ``train`` only, with the same repair
+    and validity rules and seed. Returns the base columns (derived columns are not recomputed: they are not used in Task 3).
+    Used so that the synthetic training data of the prediction task has never seen the real test rows."""
+    from sdv.metadata import Metadata
+    from sdv.single_table import GaussianCopulaSynthesizer
+    from rdt.transformers import FloatFormatter
+    real_max = train[_GEN_NUM].max(); levels = {c: set(train[c].unique()) for c in _GEN_CAT + [_SPECIAL]}
+
+    t = train[_GENERATED].copy(); t[_SPECIAL] = t[_SPECIAL].astype(str)
+    for c in _GEN_NUM:
+        t[c] = t[c].where(t[c] != 0, np.nan)
+        t[c] = np.log(t[c])
+    meta = Metadata.detect_from_dataframes({"t": t})
+    for c in _GEN_NUM: meta.update_column(c, sdtype="numerical")
+    for c in _GEN_CAT + [_SPECIAL]: meta.update_column(c, sdtype="categorical")
+    np.random.seed(seed)
+    syn = GaussianCopulaSynthesizer(meta, enforce_min_max_values=True, enforce_rounding=False, default_distribution="truncnorm",
+                                    numerical_distributions={c: "norm" for c in _GEN_NUM})
+    syn.auto_assign_transformers({"t": t})
+    syn.update_transformers({c: FloatFormatter(learn_rounding_scheme=False, enforce_min_max_values=True,
+                                               missing_value_replacement="mean", missing_value_generation="from_column") for c in _GEN_NUM})
+    syn.fit({"t": t})
+
+    def repair(a):
+        a = a.copy()
+        for c in ("Administrative", "Informational", "ProductRelated"): a[c] = a[c].round()
+        a[_GEN_NUM] = a[_GEN_NUM].fillna(0).clip(lower=0).clip(upper=real_max, axis=1)
+        for k, d in _COUNT_DUR:
+            a.loc[(a[k] == 0) & (a[d] > 0), d] = 0
+        for c in ("Administrative", "Informational", "ProductRelated"): a[c] = a[c].astype(int)
+        a[_SPECIAL] = a[_SPECIAL].astype(float)
+        return a
+
+    def valid(a):
+        ok = a[["Administrative", "Informational", "ProductRelated"]].sum(axis=1) >= 1
+        ok &= (a[["BounceRates", "ExitRates"]] <= 1).all(axis=1)
+        for c in _GEN_CAT: ok &= a[c].isin(levels[c])
+        return ok & a[_SPECIAL].isin([float(x) for x in levels[_SPECIAL]])
+
+    kept, need, tries = [], n, 0
+    while need > 0 and tries < 20:
+        tries += 1
+        out = syn.sample(int(need * 1.2) + 50); out = (out["t"] if isinstance(out, dict) else out).copy()
+        for c in _GEN_NUM: out[c] = np.exp(out[c])
+        raw = repair(out); kept.append(raw[valid(raw)]); need = n - sum(len(k) for k in kept)
+    return pd.concat(kept).iloc[:n].reset_index(drop=True)
+
+
+# ------------------------------------------------------------------------------------------ hold-out safe feature importance
+def grouped_permutation_importance(model, X, y, groups, repeats=10, seed=SEED):
+    """Permutation importance in which all columns of a group (the dummy columns of one categorical attribute) are shuffled
+    together, i.e. whole rows of the group are permuted, so that no impossible combination of dummies is created.
+    Returns the mean drop in ROC AUC per group."""
+    rng = np.random.default_rng(seed); Xv = X.to_numpy(); base = roc_auc_score(y, model.predict_proba(X)[:, 1]); out = {}
+    cols = {g: [X.columns.get_loc(c) for c in cs] for g, cs in groups.items()}
+    for g, idx in cols.items():
+        drops = []
+        for _ in range(repeats):
+            Xp = Xv.copy(); perm = rng.permutation(len(Xv)); Xp[:, idx] = Xv[perm][:, idx]
+            drops.append(base - roc_auc_score(y, model.predict_proba(pd.DataFrame(Xp, columns=X.columns))[:, 1]))
+        out[g] = float(np.mean(drops))
+    return pd.Series(out)
+
+
+def paired_bootstrap_auc(y, p_a, p_b, n_boot=1000, seed=SEED):
+    """Paired bootstrap over the test rows: mean and 95% interval of AUC(a) - AUC(b) on the same resampled rows."""
+    rng = np.random.default_rng(seed); y = np.asarray(y); d = []
+    for _ in range(n_boot):
+        i = rng.integers(0, len(y), len(y))
+        if y[i].min() == y[i].max(): continue
+        d.append(roc_auc_score(y[i], p_a[i]) - roc_auc_score(y[i], p_b[i]))
+    d = np.array(d); return float(d.mean()), float(np.percentile(d, 2.5)), float(np.percentile(d, 97.5))
+
+
+def importance_analysis2(real, syn_main, drop=(), repeats=10, n_boot=1000):
+    """Task 3, hold-out safe version. 70% of the real rows train, 30% test (stratified, seed 42). A second synthetic dataset is
+    generated with the project's generator fitted on the 70% training rows only (same size as the main synthetic data), so that
+    no model has seen the test rows, directly or through the generator. The main synthetic dataset (fitted on all real rows) is
+    kept as a fifth row for comparison. Importance: grouped permutation importance on the real test set."""
+    y_of = lambda d: (d.Revenue == "Purchase").astype(int).to_numpy()
+    tr, te = train_test_split(real, test_size=0.3, stratify=real.Revenue, random_state=SEED)
+    syn_tr = generate_from(tr, len(syn_main), SEED)
+    cols = design_matrix(real).columns
+    keep = [c for c in cols if not any(c == d or c.startswith(d + "_") for d in drop)]
+    attrs = [f for f in BASE_NUM + BASE_CAT if f not in drop]
+    groups = {f: [c for c in keep if c == f or c.startswith(f + "_")] for f in attrs}
+    sets = {"Real": tr, "Synthetic (fitted on training rows only)": syn_tr,
+            "Real + Synthetic (fitted on training rows only)": pd.concat([tr, syn_tr], ignore_index=True),
+            "Synthetic (main dataset; generator saw the test rows)": syn_main}
+    Xte = design_matrix(te, cols)[keep]; yte = y_of(te); res, imp, prob = {}, {}, {}
+    for name, d in sets.items():
+        rf = RandomForestClassifier(n_estimators=300, min_samples_leaf=5, n_jobs=-1, random_state=SEED).fit(design_matrix(d, cols)[keep], y_of(d))
+        p = rf.predict_proba(Xte)[:, 1]; prob[name] = p
+        res[name] = {"ROC AUC": roc_auc_score(yte, p), "average precision": average_precision_score(yte, p), "train rows": len(d)}
+        imp[name] = grouped_permutation_importance(rf, Xte, yte, groups, repeats)
+    res["baseline: majority class"] = {"ROC AUC": 0.5, "average precision": float(yte.mean()), "train rows": 0}
+    names = list(sets); ref = "Real"; rows = []
+    for nme in names[1:]:
+        m, lo, hi = paired_bootstrap_auc(yte, prob[ref], prob[nme], n_boot)
+        rows.append({"comparison": f"AUC(Real) - AUC({nme})", "difference": m, "95% lower": lo, "95% upper": hi})
+    return pd.DataFrame(res).T, pd.DataFrame(imp), pd.DataFrame(rows).set_index("comparison"), len(te)
+
+
+def repeated_split_auc(real, n_splits=5):
+    """Robustness: repeat split, generator refit and models for five different splits (seeds 42 to 46) and report the test AUC."""
+    y_of = lambda d: (d.Revenue == "Purchase").astype(int).to_numpy(); rows = []
+    cols = design_matrix(real).columns
+    for k in range(n_splits):
+        s = SEED + k
+        tr, te = train_test_split(real, test_size=0.3, stratify=real.Revenue, random_state=s)
+        syn_tr = generate_from(tr, len(real), s); Xte = design_matrix(te, cols); r = {"split seed": s}
+        for name, d in (("Real", tr), ("Synthetic", syn_tr), ("Real + Synthetic", pd.concat([tr, syn_tr], ignore_index=True))):
+            rf = RandomForestClassifier(n_estimators=300, min_samples_leaf=5, n_jobs=-1, random_state=s).fit(design_matrix(d, cols), y_of(d))
+            r[name] = roc_auc_score(y_of(te), rf.predict_proba(Xte)[:, 1])
+        rows.append(r)
+    return pd.DataFrame(rows).set_index("split seed")
+
+
+def shuffled_marginals_auc(real, syn):
+    """Classifier two-sample test after shuffling every column independently within each dataset (keeps every column's
+    distribution, destroys all relationships between columns). The AUC that remains is what the marginals alone give away."""
+    rng = np.random.default_rng(SEED)
+    sh = lambda d: pd.DataFrame({c: rng.permutation(d[c].to_numpy()) for c in d.columns})
+    return two_sample_classifier(sh(real), sh(syn))["all columns"]

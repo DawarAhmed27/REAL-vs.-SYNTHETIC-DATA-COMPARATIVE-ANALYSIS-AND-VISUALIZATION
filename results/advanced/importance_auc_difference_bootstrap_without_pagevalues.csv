@@ -1,0 +1,4 @@
+comparison,difference,95% lower,95% upper
+AUC(Real) - AUC(Synthetic (fitted on training rows only)),0.0895,0.0707,0.1069
+AUC(Real) - AUC(Real + Synthetic (fitted on training rows only)),0.0098,0.0036,0.0166
+AUC(Real) - AUC(Synthetic (main dataset; generator saw the test rows)),0.0998,0.0821,0.1185

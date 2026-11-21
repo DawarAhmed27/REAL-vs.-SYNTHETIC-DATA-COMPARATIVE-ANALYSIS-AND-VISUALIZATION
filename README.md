@@ -52,7 +52,7 @@ docs/            Project plan and notes
    - `06_scenario3_combined.ipynb`: appends both datasets with a `Data_Source` column (`data/combined/combined_dataset.csv`), group comparison, relationship and outlier analysis, representation and bias check, and the full Scenario 1/2 analysis repeated on the pooled data (figures S3-11 to S3-23, tables `pooled_*.csv`) (done)
    - `07_comparative_analysis.ipynb`: comparison table, three-way comparison charts, side-by-side correlation matrices, summary matrix, written answers to the seven questions and the long-format tables for the Power BI Comparison page (`results/comparison/`, `figures/comparison/`) (done)
    - Notebook 07 writes the Power BI tables to `results/comparison/powerbi_tables/` (`dim_scenario`, `rows_by_scenario` with Combined = all rows of Real and Synthetic, `stats_long`, `box_stats_long`, `histogram_bins_long`, `categorical_shares_long`, `correlation_long`, `monthly_long` with 95% intervals) and imports `src/comparison_lib.py`
-   - `08_advanced_analysis.ipynb`: four advanced tasks, real vs. synthetic: hypothesis tests (Welch t, Mann-Whitney, chi-square, Holm correction, effect sizes), PCA with a classifier two-sample test, feature importance (train on synthetic, test on real) and K-Means clustering (`results/advanced/`, `figures/advanced/`, code in `src/advanced_lib.py`; about 5 minutes to run) (done)
+   - `08_advanced_analysis.ipynb`: four advanced tasks, real vs. synthetic: hypothesis tests (Welch t, Mann-Whitney, chi-square, Holm correction, effect sizes), PCA with a classifier two-sample test, feature importance (train on synthetic, test on real) and K-Means clustering (`results/advanced/`, `figures/advanced/`, code in `src/advanced_lib.py`; about 10 to 15 minutes to run on a laptop, mostly the generator refits and the random forests) (done)
    - Notebooks 04-06 import `src/scenario_lib.py`, which holds every function and plot setting so that the three scenarios are analysed identically
    - Further notebooks are added as the phases are completed
 4. Open `powerbi/*.pbix` in Power BI Desktop and refresh the data sources to point at `data/`.
@@ -69,8 +69,8 @@ docs/            Project plan and notes
 
 ## Key findings so far (Phase 7, advanced analysis)
 - Hypothesis tests: no numerical column is normal, so Mann-Whitney is the primary test. 6 of 14 numerical columns differ significantly after Holm correction but only 3 pass a small-effect threshold (rank-biserial about 0.1); only Revenue differs among the 10 categorical columns (Cramér's V 0.020).
-- A classifier separates real from synthetic rows with ROC AUC 0.95 (0.81 on the categorical columns alone): the joint structure is not equivalent although the single columns are close.
-- PageValues is the dominant predictor of a purchase in models trained on real, synthetic and both. A model trained on synthetic data scores AUC 0.83 on real test data against 0.92 for a model trained on real data.
+- A classifier separates real from synthetic rows with ROC AUC 0.95 (0.81 on the categorical columns alone); with every column shuffled independently it still reaches 0.82, so most of the separability comes from many small differences in the column distributions and the joint structure adds about 0.12.
+- PageValues is the dominant predictor of a purchase in models trained on real, synthetic and both. A model trained on synthetic data (generator refitted on the training rows only, so the test rows stay unseen) scores AUC 0.84 on real test data against 0.92 for a model trained on real data (gap 0.077, 95% interval 0.063 to 0.092; 0.071 on average over five splits); adding synthetic rows to real rows costs about 0.01 AUC.
 - K-Means (k = 3 chosen on the real data): the synthetic data has no low-converting bounce cluster (7.4% of real sessions, 0.4% purchase rate); agreement with the real clusters depends strongly on k.
 ## Team
 _TBD_
