@@ -1,0 +1,15 @@
+metric,metric_order,label,unit
+Administrative,1,Administrative pages visited,count
+Administrative_Duration,2,Time on administrative pages,seconds
+Informational,3,Informational pages visited,count
+Informational_Duration,4,Time on informational pages,seconds
+ProductRelated,5,Product pages visited,count
+ProductRelated_Duration,6,Time on product pages,seconds
+BounceRates,7,Bounce rate,proportion 0-1
+ExitRates,8,Exit rate,proportion 0-1
+PageValues,9,Page value,GA score
+SpecialDay,10,Closeness to special day,0-1
+Total_Pages,11,Total pages per session,count
+Total_Duration,12,Total time per session,seconds
+Avg_Time_Per_Page,13,Average time per page,seconds
+Product_Page_Share,14,Product-page share of session,proportion 0-1

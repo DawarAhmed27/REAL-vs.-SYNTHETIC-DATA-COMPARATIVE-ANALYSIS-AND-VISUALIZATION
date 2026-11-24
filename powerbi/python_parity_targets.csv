@@ -1,0 +1,355 @@
+scenario,measure,variable,value
+Real,Sessions,,12199.0
+Real,Purchase Rate,,0.15640626280842693
+Real,Returning Visitor Share,,0.8545782441183704
+Real,Avg Pages per Session,,34.42101811623903
+Real,Avg Minutes per Session,,21.58902792600883
+Real,Avg Page Value,,5.95250015960423
+Real,Mean,Administrative,2.3400278711369786
+Real,Median,Administrative,1.0
+Real,Std Dev,Administrative,3.330851236772972
+Real,Variance,Administrative,11.094569961512036
+Real,Min,Administrative,0.0
+Real,Max,Administrative,27.0
+Real,Q1,Administrative,0.0
+Real,Q3,Administrative,4.0
+Real,Mean,Administrative_Duration,79.49293010100357
+Real,Median,Administrative_Duration,9.0
+Real,Std Dev,Administrative_Duration,157.51842385749188
+Real,Variance,Administrative_Duration,24812.053854548467
+Real,Min,Administrative_Duration,0.0
+Real,Max,Administrative_Duration,1178.967333330008
+Real,Q1,Administrative_Duration,0.0
+Real,Q3,Administrative_Duration,94.75
+Real,Mean,Informational,0.5089761455857037
+Real,Median,Informational,0.0
+Real,Std Dev,Informational,1.2758803728004915
+Real,Variance,Informational,1.6278707256975213
+Real,Min,Informational,0.0
+Real,Max,Informational,24.0
+Real,Q1,Informational,0.0
+Real,Q3,Informational,0.0
+Real,Mean,Informational_Duration,32.76712609704279
+Real,Median,Informational_Duration,0.0
+Real,Std Dev,Informational_Duration,120.15505095471667
+Real,Variance,Informational_Duration,14437.236269930561
+Real,Min,Informational_Duration,0.0
+Real,Max,Informational_Duration,1005.4210000000004
+Real,Q1,Informational_Duration,0.0
+Real,Q3,Informational_Duration,0.0
+Real,Mean,ProductRelated,31.572014099516355
+Real,Median,ProductRelated,18.0
+Real,Std Dev,ProductRelated,40.689517882619974
+Real,Variance,ProductRelated,1655.6368655200506
+Real,Min,ProductRelated,0.0
+Real,Max,ProductRelated,282.0
+Real,Q1,ProductRelated,8.0
+Real,Q3,ProductRelated,38.0
+Real,Mean,ProductRelated_Duration,1183.0816193624833
+Real,Median,ProductRelated_Duration,609.5416667
+Real,Std Dev,ProductRelated_Duration,1652.5254600260519
+Real,Variance,ProductRelated_Duration,2730840.3960343143
+Real,Min,ProductRelated_Duration,0.0
+Real,Max,ProductRelated_Duration,11246.1773193
+Real,Q1,ProductRelated_Duration,193.70833335
+Real,Q3,ProductRelated_Duration,1477.5647585000002
+Real,Mean,BounceRates,0.020283606951717357
+Real,Median,BounceRates,0.002898551
+Real,Std Dev,BounceRates,0.04509700164074605
+Real,Variance,BounceRates,0.002033739556985452
+Real,Min,BounceRates,0.0
+Real,Max,BounceRates,0.2
+Real,Q1,BounceRates,0.0
+Real,Q3,BounceRates,0.016666667
+Real,Mean,ExitRates,0.04138911208123617
+Real,Median,ExitRates,0.025
+Real,Std Dev,ExitRates,0.0460447647815111
+Real,Variance,ExitRates,0.0021201203637846847
+Real,Min,ExitRates,0.0
+Real,Max,ExitRates,0.2
+Real,Q1,ExitRates,0.014222578999999999
+Real,Q3,ExitRates,0.048466026499999995
+Real,Mean,PageValues,5.95250015960423
+Real,Median,PageValues,0.0
+Real,Std Dev,PageValues,18.65779150278722
+Real,Variance,PageValues,348.1131837614789
+Real,Min,PageValues,0.0
+Real,Max,PageValues,361.7637419
+Real,Q1,PageValues,0.0
+Real,Q3,PageValues,0.0
+Real,Mean,SpecialDay,0.06197229281088614
+Real,Median,SpecialDay,0.0
+Real,Std Dev,SpecialDay,0.19971059291967816
+Real,Variance,SpecialDay,0.039884320924329406
+Real,Min,SpecialDay,0.0
+Real,Max,SpecialDay,1.0
+Real,Q1,SpecialDay,0.0
+Real,Q3,SpecialDay,0.0
+Real,Mean,Total_Pages,34.42101811623903
+Real,Median,Total_Pages,20.0
+Real,Std Dev,Total_Pages,42.76147793277836
+Real,Variance,Total_Pages,1828.5439949954907
+Real,Min,Total_Pages,1.0
+Real,Max,Total_Pages,323.0
+Real,Q1,Total_Pages,9.0
+Real,Q3,Total_Pages,42.0
+Real,Mean,Total_Duration,1295.3416755605297
+Real,Median,Total_Duration,691.3572797
+Real,Std Dev,Total_Duration,1749.5497311110141
+Real,Variance,Total_Duration,3060924.261630622
+Real,Min,Total_Duration,0.0
+Real,Max,Total_Duration,13430.565652630008
+Real,Q1,Total_Duration,232.35000000000002
+Real,Q3,Total_Duration,1640.4861110000002
+Real,Mean,Avg_Time_Per_Page,38.069249941783994
+Real,Median,Avg_Time_Per_Page,30.0
+Real,Std Dev,Avg_Time_Per_Page,42.78451438113258
+Real,Variance,Avg_Time_Per_Page,1830.5146708293405
+Real,Min,Avg_Time_Per_Page,0.0
+Real,Max,Avg_Time_Per_Page,1364.0
+Real,Q1,Avg_Time_Per_Page,18.580734125
+Real,Q3,Avg_Time_Per_Page,45.57379102164683
+Real,Mean,Product_Page_Share,0.9045204737265777
+Real,Median,Product_Page_Share,0.9615384615384616
+Real,Std Dev,Product_Page_Share,0.1408802276242447
+Real,Variance,Product_Page_Share,0.019847238535459003
+Real,Min,Product_Page_Share,0.0
+Real,Max,Product_Page_Share,1.0
+Real,Q1,Product_Page_Share,0.8571428571428571
+Real,Q3,Product_Page_Share,1.0
+Synthetic,Sessions,,12199.0
+Synthetic,Purchase Rate,,0.14189687679317978
+Synthetic,Returning Visitor Share,,0.8616280022952701
+Synthetic,Avg Pages per Session,,35.733174850397575
+Synthetic,Avg Minutes per Session,,22.404315746046127
+Synthetic,Avg Page Value,,5.746319318864403
+Synthetic,Mean,Administrative,2.1559963931469794
+Synthetic,Median,Administrative,2.0
+Synthetic,Std Dev,Administrative,2.6010034208357586
+Synthetic,Variance,Administrative,6.765218795199319
+Synthetic,Min,Administrative,0.0
+Synthetic,Max,Administrative,27.0
+Synthetic,Q1,Administrative,0.0
+Synthetic,Q3,Administrative,4.0
+Synthetic,Mean,Administrative_Duration,61.27872053070969
+Synthetic,Median,Administrative_Duration,18.67069669789717
+Synthetic,Std Dev,Administrative_Duration,107.44595856540245
+Synthetic,Variance,Administrative_Duration,11544.63401203818
+Synthetic,Min,Administrative_Duration,0.0
+Synthetic,Max,Administrative_Duration,1178.967333330008
+Synthetic,Q1,Administrative_Duration,0.0
+Synthetic,Q3,Administrative_Duration,84.5726075598185
+Synthetic,Mean,Informational,0.6434133945405361
+Synthetic,Median,Informational,0.0
+Synthetic,Std Dev,Informational,1.0067345074256953
+Synthetic,Variance,Informational,1.0135143684416572
+Synthetic,Min,Informational,0.0
+Synthetic,Max,Informational,6.0
+Synthetic,Q1,Informational,0.0
+Synthetic,Q3,Informational,2.0
+Synthetic,Mean,Informational_Duration,22.26439570601961
+Synthetic,Median,Informational_Duration,0.0
+Synthetic,Std Dev,Informational_Duration,47.69165434283185
+Synthetic,Variance,Informational_Duration,2274.4938939561525
+Synthetic,Min,Informational_Duration,0.0
+Synthetic,Max,Informational_Duration,501.5700948188223
+Synthetic,Q1,Informational_Duration,0.0
+Synthetic,Q3,Informational_Duration,21.94459212931922
+Synthetic,Mean,ProductRelated,32.93376506271006
+Synthetic,Median,ProductRelated,17.0
+Synthetic,Std Dev,ProductRelated,46.02701047118384
+Synthetic,Variance,ProductRelated,2118.485692914467
+Synthetic,Min,ProductRelated,1.0
+Synthetic,Max,ProductRelated,282.0
+Synthetic,Q1,ProductRelated,7.0
+Synthetic,Q3,ProductRelated,38.0
+Synthetic,Mean,ProductRelated_Duration,1260.7158285260384
+Synthetic,Median,ProductRelated_Duration,534.0210105181321
+Synthetic,Std Dev,ProductRelated_Duration,1983.0999265495852
+Synthetic,Variance,ProductRelated_Duration,3932685.3186809705
+Synthetic,Min,ProductRelated_Duration,0.0
+Synthetic,Max,ProductRelated_Duration,11246.1773193
+Synthetic,Q1,ProductRelated_Duration,205.12808052166926
+Synthetic,Q3,ProductRelated_Duration,1361.8053495177573
+Synthetic,Mean,BounceRates,0.013837964084003023
+Synthetic,Median,BounceRates,0.004282930524461
+Synthetic,Std Dev,BounceRates,0.024956599948230247
+Synthetic,Variance,BounceRates,0.0006228318809760059
+Synthetic,Min,BounceRates,0.0
+Synthetic,Max,BounceRates,0.2
+Synthetic,Q1,BounceRates,0.0
+Synthetic,Q3,BounceRates,0.01743179780914755
+Synthetic,Mean,ExitRates,0.0399540458300348
+Synthetic,Median,ExitRates,0.0254628939475923
+Synthetic,Std Dev,ExitRates,0.04148102210939682
+Synthetic,Variance,ExitRates,0.0017206751952402678
+Synthetic,Min,ExitRates,0.0004768809027876
+Synthetic,Max,ExitRates,0.2
+Synthetic,Q1,ExitRates,0.0131508939635225
+Synthetic,Q3,ExitRates,0.050301677173892195
+Synthetic,Mean,PageValues,5.746319318864403
+Synthetic,Median,PageValues,0.0
+Synthetic,Std Dev,PageValues,10.208692220903423
+Synthetic,Variance,PageValues,104.21739686113406
+Synthetic,Min,PageValues,0.0
+Synthetic,Max,PageValues,125.00420416380165
+Synthetic,Q1,PageValues,0.0
+Synthetic,Q3,PageValues,10.087450469909001
+Synthetic,Mean,SpecialDay,0.05969341749323715
+Synthetic,Median,SpecialDay,0.0
+Synthetic,Std Dev,SpecialDay,0.19612813348297933
+Synthetic,Variance,SpecialDay,0.038466244743517355
+Synthetic,Min,SpecialDay,0.0
+Synthetic,Max,SpecialDay,1.0
+Synthetic,Q1,SpecialDay,0.0
+Synthetic,Q3,SpecialDay,0.0
+Synthetic,Mean,Total_Pages,35.733174850397575
+Synthetic,Median,Total_Pages,19.0
+Synthetic,Std Dev,Total_Pages,47.04488345749483
+Synthetic,Variance,Total_Pages,2213.2210595292704
+Synthetic,Min,Total_Pages,1.0
+Synthetic,Max,Total_Pages,297.0
+Synthetic,Q1,Total_Pages,9.0
+Synthetic,Q3,Total_Pages,41.0
+Synthetic,Mean,Total_Duration,1344.2589447627677
+Synthetic,Median,Total_Duration,623.028023861837
+Synthetic,Std Dev,Total_Duration,2015.255642255436
+Synthetic,Variance,Total_Duration,4061255.30364237
+Synthetic,Min,Total_Duration,0.0
+Synthetic,Max,Total_Duration,12581.501441879347
+Synthetic,Q1,Total_Duration,258.94090117222345
+Synthetic,Q3,Total_Duration,1468.2570894835962
+Synthetic,Mean,Avg_Time_Per_Page,43.925706176835845
+Synthetic,Median,Avg_Time_Per_Page,31.5861730681559
+Synthetic,Std Dev,Avg_Time_Per_Page,43.33733030319263
+Synthetic,Variance,Avg_Time_Per_Page,1878.124197808018
+Synthetic,Min,Avg_Time_Per_Page,0.0
+Synthetic,Max,Avg_Time_Per_Page,605.7132928860422
+Synthetic,Q1,Avg_Time_Per_Page,17.74631397645242
+Synthetic,Q3,Avg_Time_Per_Page,54.48906199662416
+Synthetic,Mean,Product_Page_Share,0.8791060870895686
+Synthetic,Median,Product_Page_Share,0.934065934065934
+Synthetic,Std Dev,Product_Page_Share,0.15199588735347147
+Synthetic,Variance,Product_Page_Share,0.02310274977236919
+Synthetic,Min,Product_Page_Share,0.1
+Synthetic,Max,Product_Page_Share,1.0
+Synthetic,Q1,Product_Page_Share,0.8181818181818182
+Synthetic,Q3,Product_Page_Share,1.0
+Combined,Sessions,,24398.0
+Combined,Purchase Rate,,0.14915156980080335
+Combined,Returning Visitor Share,,0.8581031232068203
+Combined,Avg Pages per Session,,35.07709648331831
+Combined,Avg Minutes per Session,,21.996671836027478
+Combined,Avg Page Value,,5.849409739234317
+Combined,Mean,Administrative,2.248012132141979
+Combined,Median,Administrative,1.0
+Combined,Std Dev,Administrative,2.989648072490189
+Combined,Variance,Administrative,8.937995597344301
+Combined,Min,Administrative,0.0
+Combined,Max,Administrative,27.0
+Combined,Q1,Administrative,0.0
+Combined,Q3,Administrative,4.0
+Combined,Mean,Administrative_Duration,70.38582531585662
+Combined,Median,Administrative_Duration,13.0
+Combined,Std Dev,Administrative_Duration,135.13157138406245
+Combined,Variance,Administrative_Duration,18260.541584725965
+Combined,Min,Administrative_Duration,0.0
+Combined,Max,Administrative_Duration,1178.967333330008
+Combined,Q1,Administrative_Duration,0.0
+Combined,Q3,Administrative_Duration,88.74245518486319
+Combined,Mean,Informational,0.5761947700631199
+Combined,Median,Informational,0.0
+Combined,Std Dev,Informational,1.1511546127030585
+Combined,Variance,Informational,1.325156942347529
+Combined,Min,Informational,0.0
+Combined,Max,Informational,24.0
+Combined,Q1,Informational,0.0
+Combined,Q3,Informational,1.0
+Combined,Mean,Informational_Duration,27.5157609015312
+Combined,Median,Informational_Duration,0.0
+Combined,Std Dev,Informational_Duration,91.5592734413074
+Combined,Variance,Informational_Duration,8383.1005531001
+Combined,Min,Informational_Duration,0.0
+Combined,Max,Informational_Duration,1005.4210000000004
+Combined,Q1,Informational_Duration,0.0
+Combined,Q3,Informational_Duration,0.0
+Combined,Mean,ProductRelated,32.25288958111321
+Combined,Median,ProductRelated,17.0
+Combined,Std Dev,ProductRelated,43.44476425938637
+Combined,Variance,ProductRelated,1887.4475415536551
+Combined,Min,ProductRelated,0.0
+Combined,Max,ProductRelated,282.0
+Combined,Q1,ProductRelated,7.0
+Combined,Q3,ProductRelated,38.0
+Combined,Mean,ProductRelated_Duration,1221.8987239442608
+Combined,Median,ProductRelated_Duration,574.69464285
+Combined,Std Dev,ProductRelated_Duration,1825.68702747139
+Combined,Variance,ProductRelated_Duration,3333133.12227732
+Combined,Min,ProductRelated_Duration,0.0
+Combined,Max,ProductRelated_Duration,11246.1773193
+Combined,Q1,ProductRelated_Duration,200.20887786766298
+Combined,Q3,ProductRelated_Duration,1420.8037828001843
+Combined,Mean,BounceRates,0.01706078551786019
+Combined,Median,BounceRates,0.00351943851271825
+Combined,Std Dev,BounceRates,0.036587132684506904
+Combined,Variance,BounceRates,0.0013386182780737135
+Combined,Min,BounceRates,0.0
+Combined,Max,BounceRates,0.2
+Combined,Q1,BounceRates,0.0
+Combined,Q3,BounceRates,0.016772861522503024
+Combined,Mean,ExitRates,0.04067157895563548
+Combined,Median,ExitRates,0.025119910500000002
+Combined,Std Dev,ExitRates,0.04382731956094199
+Combined,Variance,ExitRates,0.0019208339398969283
+Combined,Min,ExitRates,0.0
+Combined,Max,ExitRates,0.2
+Combined,Q1,ExitRates,0.013527404373293275
+Combined,Q3,ExitRates,0.049827313143231224
+Combined,Mean,PageValues,5.849409739234317
+Combined,Median,PageValues,0.0
+Combined,Std Dev,PageValues,15.038837992765133
+Combined,Variance,PageValues,226.166648172636
+Combined,Min,PageValues,0.0
+Combined,Max,PageValues,361.7637419
+Combined,Q1,PageValues,0.0
+Combined,Q3,PageValues,5.346823458470727
+Combined,Mean,SpecialDay,0.060832855152061646
+Combined,Median,SpecialDay,0.0
+Combined,Std Dev,SpecialDay,0.19792669214512815
+Combined,Variance,SpecialDay,0.03917497546351233
+Combined,Min,SpecialDay,0.0
+Combined,Max,SpecialDay,1.0
+Combined,Q1,SpecialDay,0.0
+Combined,Q3,SpecialDay,0.0
+Combined,Mean,Total_Pages,35.07709648331831
+Combined,Median,Total_Pages,20.0
+Combined,Std Dev,Total_Pages,44.958093270182445
+Combined,Variance,Total_Pages,2021.230150490424
+Combined,Min,Total_Pages,1.0
+Combined,Max,Total_Pages,323.0
+Combined,Q1,Total_Pages,9.0
+Combined,Q3,Total_Pages,42.0
+Combined,Mean,Total_Duration,1319.8003101616487
+Combined,Median,Total_Duration,656.6651708073587
+Combined,Std Dev,Total_Duration,1887.2048292950294
+Combined,Variance,Total_Duration,3561542.067714481
+Combined,Min,Total_Duration,0.0
+Combined,Max,Total_Duration,13430.565652630008
+Combined,Q1,Total_Duration,248.0
+Combined,Q3,Total_Duration,1557.1978672959915
+Combined,Mean,Avg_Time_Per_Page,40.99747805930992
+Combined,Median,Avg_Time_Per_Page,30.61326822042124
+Combined,Std Dev,Avg_Time_Per_Page,43.16037881717187
+Combined,Variance,Avg_Time_Per_Page,1862.818299641778
+Combined,Min,Avg_Time_Per_Page,0.0
+Combined,Max,Avg_Time_Per_Page,1364.0
+Combined,Q1,Avg_Time_Per_Page,18.20833333333333
+Combined,Q3,Avg_Time_Per_Page,49.70314454090909
+Combined,Mean,Product_Page_Share,0.8918132804080732
+Combined,Median,Product_Page_Share,0.948051948051948
+Combined,Std Dev,Product_Page_Share,0.14709042560126578
+Combined,Variance,Product_Page_Share,0.021635593303561507
+Combined,Min,Product_Page_Share,0.0
+Combined,Max,Product_Page_Share,1.0
+Combined,Q1,Product_Page_Share,0.84
+Combined,Q3,Product_Page_Share,1.0

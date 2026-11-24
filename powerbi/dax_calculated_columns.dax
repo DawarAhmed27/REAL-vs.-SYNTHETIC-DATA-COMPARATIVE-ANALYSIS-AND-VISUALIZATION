@@ -1,0 +1,19 @@
+// Calculated columns (Table tools > New column). They only add sort keys; no data value is changed.
+// In Combined:
+MonthNo =
+SWITCH(Combined[Month], "Feb", 2, "Mar", 3, "May", 5, "Jun", 6, "Jul", 7, "Aug", 8, "Sep", 9, "Oct", 10, "Nov", 11, "Dec", 12)
+// then select Combined[Month] > Column tools > Sort by column > MonthNo
+
+BandNo =
+SWITCH(Combined[Session_Length_Band], "Short", 1, "Medium", 2, "Long", 3)
+// then Combined[Session_Length_Band] > Sort by column > BandNo
+
+// In monthly_long (same mapping):
+MonthNo =
+SWITCH(monthly_long[Month], "Feb", 2, "Mar", 3, "May", 5, "Jun", 6, "Jul", 7, "Aug", 8, "Sep", 9, "Oct", 10, "Nov", 11, "Dec", 12)
+// then monthly_long[Month] > Sort by column > MonthNo
+
+// In histogram_bins_long (gives every bin a unique, correctly ordered axis label; two bin labels occur at different positions in different variables, so bin_label itself cannot be sorted):
+BinKey =
+FORMAT(histogram_bins_long[bin_index], "00") & ". " & histogram_bins_long[bin_label]
+// then histogram_bins_long[BinKey] > Sort by column > bin_index

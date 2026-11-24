@@ -1,0 +1,415 @@
+// ==========================================================================
+// DAX measures for the Real vs Synthetic project.  Create each one with
+// Home > New measure (or Modeling > New measure), in the table `_Measures`.
+// Copy only the text AFTER the header comment, one measure at a time.
+// Table names assumed: Real, Synthetic, Combined, dim_scenario, dim_metric,
+// stats_long, box_stats_long, histogram_bins_long, categorical_shares_long,
+// monthly_long.
+// ==========================================================================
+
+// ===== A. Counts and KPI cards (all read the Combined table; the page filter picks Real or Synthetic) =====
+
+// ---- Sessions   [format: #,0]
+Sessions =
+COUNTROWS(Combined)
+
+// ---- Purchases   [format: #,0]
+Purchases =
+CALCULATE(COUNTROWS(Combined), Combined[Revenue] = "Purchase")
+
+// ---- Purchase Rate   [format: 0.0%]
+Purchase Rate =
+DIVIDE([Purchases], [Sessions])
+
+// ---- Returning Visitor Share   [format: 0.0%]
+Returning Visitor Share =
+DIVIDE(CALCULATE(COUNTROWS(Combined), Combined[VisitorType] = "Returning_Visitor"), [Sessions])
+
+// ---- Avg Pages per Session   [format: 0.0]
+Avg Pages per Session =
+AVERAGE(Combined[Total_Pages])
+
+// ---- Avg Minutes per Session   [format: 0.0]
+Avg Minutes per Session =
+DIVIDE(AVERAGE(Combined[Total_Duration]), 60)
+
+// ---- Avg Page Value   [format: 0.00]
+Avg Page Value =
+AVERAGE(Combined[PageValues])
+
+// ===== B. The required statistics measures, for whichever variable is chosen in the dim_metric slicer =====
+
+// ---- Selected Metric
+// Falls back to Total_Pages when no single metric is selected.
+Selected Metric =
+SELECTEDVALUE(dim_metric[metric], "Total_Pages")
+
+// ---- Mean (selected)   [format: 0.000]
+Mean (selected) =
+SWITCH(
+    [Selected Metric],
+    "Administrative", AVERAGE(Combined[Administrative]),
+    "Administrative_Duration", AVERAGE(Combined[Administrative_Duration]),
+    "Informational", AVERAGE(Combined[Informational]),
+    "Informational_Duration", AVERAGE(Combined[Informational_Duration]),
+    "ProductRelated", AVERAGE(Combined[ProductRelated]),
+    "ProductRelated_Duration", AVERAGE(Combined[ProductRelated_Duration]),
+    "BounceRates", AVERAGE(Combined[BounceRates]),
+    "ExitRates", AVERAGE(Combined[ExitRates]),
+    "PageValues", AVERAGE(Combined[PageValues]),
+    "SpecialDay", AVERAGE(Combined[SpecialDay]),
+    "Total_Pages", AVERAGE(Combined[Total_Pages]),
+    "Total_Duration", AVERAGE(Combined[Total_Duration]),
+    "Avg_Time_Per_Page", AVERAGE(Combined[Avg_Time_Per_Page]),
+    "Product_Page_Share", AVERAGE(Combined[Product_Page_Share]),
+    BLANK()
+)
+
+// ---- Median (selected)   [format: 0.000]
+Median (selected) =
+SWITCH(
+    [Selected Metric],
+    "Administrative", MEDIAN(Combined[Administrative]),
+    "Administrative_Duration", MEDIAN(Combined[Administrative_Duration]),
+    "Informational", MEDIAN(Combined[Informational]),
+    "Informational_Duration", MEDIAN(Combined[Informational_Duration]),
+    "ProductRelated", MEDIAN(Combined[ProductRelated]),
+    "ProductRelated_Duration", MEDIAN(Combined[ProductRelated_Duration]),
+    "BounceRates", MEDIAN(Combined[BounceRates]),
+    "ExitRates", MEDIAN(Combined[ExitRates]),
+    "PageValues", MEDIAN(Combined[PageValues]),
+    "SpecialDay", MEDIAN(Combined[SpecialDay]),
+    "Total_Pages", MEDIAN(Combined[Total_Pages]),
+    "Total_Duration", MEDIAN(Combined[Total_Duration]),
+    "Avg_Time_Per_Page", MEDIAN(Combined[Avg_Time_Per_Page]),
+    "Product_Page_Share", MEDIAN(Combined[Product_Page_Share]),
+    BLANK()
+)
+
+// ---- Std Dev (selected)   [format: 0.000]
+Std Dev (selected) =
+SWITCH(
+    [Selected Metric],
+    "Administrative", STDEV.S(Combined[Administrative]),
+    "Administrative_Duration", STDEV.S(Combined[Administrative_Duration]),
+    "Informational", STDEV.S(Combined[Informational]),
+    "Informational_Duration", STDEV.S(Combined[Informational_Duration]),
+    "ProductRelated", STDEV.S(Combined[ProductRelated]),
+    "ProductRelated_Duration", STDEV.S(Combined[ProductRelated_Duration]),
+    "BounceRates", STDEV.S(Combined[BounceRates]),
+    "ExitRates", STDEV.S(Combined[ExitRates]),
+    "PageValues", STDEV.S(Combined[PageValues]),
+    "SpecialDay", STDEV.S(Combined[SpecialDay]),
+    "Total_Pages", STDEV.S(Combined[Total_Pages]),
+    "Total_Duration", STDEV.S(Combined[Total_Duration]),
+    "Avg_Time_Per_Page", STDEV.S(Combined[Avg_Time_Per_Page]),
+    "Product_Page_Share", STDEV.S(Combined[Product_Page_Share]),
+    BLANK()
+)
+
+// ---- Variance (selected)   [format: #,0.000]
+Variance (selected) =
+SWITCH(
+    [Selected Metric],
+    "Administrative", VAR.S(Combined[Administrative]),
+    "Administrative_Duration", VAR.S(Combined[Administrative_Duration]),
+    "Informational", VAR.S(Combined[Informational]),
+    "Informational_Duration", VAR.S(Combined[Informational_Duration]),
+    "ProductRelated", VAR.S(Combined[ProductRelated]),
+    "ProductRelated_Duration", VAR.S(Combined[ProductRelated_Duration]),
+    "BounceRates", VAR.S(Combined[BounceRates]),
+    "ExitRates", VAR.S(Combined[ExitRates]),
+    "PageValues", VAR.S(Combined[PageValues]),
+    "SpecialDay", VAR.S(Combined[SpecialDay]),
+    "Total_Pages", VAR.S(Combined[Total_Pages]),
+    "Total_Duration", VAR.S(Combined[Total_Duration]),
+    "Avg_Time_Per_Page", VAR.S(Combined[Avg_Time_Per_Page]),
+    "Product_Page_Share", VAR.S(Combined[Product_Page_Share]),
+    BLANK()
+)
+
+// ---- Min (selected)   [format: 0.000]
+Min (selected) =
+SWITCH(
+    [Selected Metric],
+    "Administrative", MIN(Combined[Administrative]),
+    "Administrative_Duration", MIN(Combined[Administrative_Duration]),
+    "Informational", MIN(Combined[Informational]),
+    "Informational_Duration", MIN(Combined[Informational_Duration]),
+    "ProductRelated", MIN(Combined[ProductRelated]),
+    "ProductRelated_Duration", MIN(Combined[ProductRelated_Duration]),
+    "BounceRates", MIN(Combined[BounceRates]),
+    "ExitRates", MIN(Combined[ExitRates]),
+    "PageValues", MIN(Combined[PageValues]),
+    "SpecialDay", MIN(Combined[SpecialDay]),
+    "Total_Pages", MIN(Combined[Total_Pages]),
+    "Total_Duration", MIN(Combined[Total_Duration]),
+    "Avg_Time_Per_Page", MIN(Combined[Avg_Time_Per_Page]),
+    "Product_Page_Share", MIN(Combined[Product_Page_Share]),
+    BLANK()
+)
+
+// ---- Max (selected)   [format: 0.000]
+Max (selected) =
+SWITCH(
+    [Selected Metric],
+    "Administrative", MAX(Combined[Administrative]),
+    "Administrative_Duration", MAX(Combined[Administrative_Duration]),
+    "Informational", MAX(Combined[Informational]),
+    "Informational_Duration", MAX(Combined[Informational_Duration]),
+    "ProductRelated", MAX(Combined[ProductRelated]),
+    "ProductRelated_Duration", MAX(Combined[ProductRelated_Duration]),
+    "BounceRates", MAX(Combined[BounceRates]),
+    "ExitRates", MAX(Combined[ExitRates]),
+    "PageValues", MAX(Combined[PageValues]),
+    "SpecialDay", MAX(Combined[SpecialDay]),
+    "Total_Pages", MAX(Combined[Total_Pages]),
+    "Total_Duration", MAX(Combined[Total_Duration]),
+    "Avg_Time_Per_Page", MAX(Combined[Avg_Time_Per_Page]),
+    "Product_Page_Share", MAX(Combined[Product_Page_Share]),
+    BLANK()
+)
+
+// ---- Q1 (selected)   [format: 0.000]
+Q1 (selected) =
+SWITCH(
+    [Selected Metric],
+    "Administrative", PERCENTILE.INC(Combined[Administrative], 0.25),
+    "Administrative_Duration", PERCENTILE.INC(Combined[Administrative_Duration], 0.25),
+    "Informational", PERCENTILE.INC(Combined[Informational], 0.25),
+    "Informational_Duration", PERCENTILE.INC(Combined[Informational_Duration], 0.25),
+    "ProductRelated", PERCENTILE.INC(Combined[ProductRelated], 0.25),
+    "ProductRelated_Duration", PERCENTILE.INC(Combined[ProductRelated_Duration], 0.25),
+    "BounceRates", PERCENTILE.INC(Combined[BounceRates], 0.25),
+    "ExitRates", PERCENTILE.INC(Combined[ExitRates], 0.25),
+    "PageValues", PERCENTILE.INC(Combined[PageValues], 0.25),
+    "SpecialDay", PERCENTILE.INC(Combined[SpecialDay], 0.25),
+    "Total_Pages", PERCENTILE.INC(Combined[Total_Pages], 0.25),
+    "Total_Duration", PERCENTILE.INC(Combined[Total_Duration], 0.25),
+    "Avg_Time_Per_Page", PERCENTILE.INC(Combined[Avg_Time_Per_Page], 0.25),
+    "Product_Page_Share", PERCENTILE.INC(Combined[Product_Page_Share], 0.25),
+    BLANK()
+)
+
+// ---- Q3 (selected)   [format: 0.000]
+Q3 (selected) =
+SWITCH(
+    [Selected Metric],
+    "Administrative", PERCENTILE.INC(Combined[Administrative], 0.75),
+    "Administrative_Duration", PERCENTILE.INC(Combined[Administrative_Duration], 0.75),
+    "Informational", PERCENTILE.INC(Combined[Informational], 0.75),
+    "Informational_Duration", PERCENTILE.INC(Combined[Informational_Duration], 0.75),
+    "ProductRelated", PERCENTILE.INC(Combined[ProductRelated], 0.75),
+    "ProductRelated_Duration", PERCENTILE.INC(Combined[ProductRelated_Duration], 0.75),
+    "BounceRates", PERCENTILE.INC(Combined[BounceRates], 0.75),
+    "ExitRates", PERCENTILE.INC(Combined[ExitRates], 0.75),
+    "PageValues", PERCENTILE.INC(Combined[PageValues], 0.75),
+    "SpecialDay", PERCENTILE.INC(Combined[SpecialDay], 0.75),
+    "Total_Pages", PERCENTILE.INC(Combined[Total_Pages], 0.75),
+    "Total_Duration", PERCENTILE.INC(Combined[Total_Duration], 0.75),
+    "Avg_Time_Per_Page", PERCENTILE.INC(Combined[Avg_Time_Per_Page], 0.75),
+    "Product_Page_Share", PERCENTILE.INC(Combined[Product_Page_Share], 0.75),
+    BLANK()
+)
+
+// ---- Count (selected)   [format: #,0]
+// Counts non-blank values of the selected variable; equals Sessions because there are no missing values.
+Count (selected) =
+SWITCH(
+    [Selected Metric],
+    "Administrative", COUNT(Combined[Administrative]),
+    "Administrative_Duration", COUNT(Combined[Administrative_Duration]),
+    "Informational", COUNT(Combined[Informational]),
+    "Informational_Duration", COUNT(Combined[Informational_Duration]),
+    "ProductRelated", COUNT(Combined[ProductRelated]),
+    "ProductRelated_Duration", COUNT(Combined[ProductRelated_Duration]),
+    "BounceRates", COUNT(Combined[BounceRates]),
+    "ExitRates", COUNT(Combined[ExitRates]),
+    "PageValues", COUNT(Combined[PageValues]),
+    "SpecialDay", COUNT(Combined[SpecialDay]),
+    "Total_Pages", COUNT(Combined[Total_Pages]),
+    "Total_Duration", COUNT(Combined[Total_Duration]),
+    "Avg_Time_Per_Page", COUNT(Combined[Avg_Time_Per_Page]),
+    "Product_Page_Share", COUNT(Combined[Product_Page_Share]),
+    BLANK()
+)
+
+// ===== C. Scenario-aware versions for the Comparison page (axis = dim_scenario: Real, Synthetic, Combined) =====
+
+// ---- Rows by Scenario   [format: 0.000]
+Rows by Scenario =
+SWITCH(
+    SELECTEDVALUE(dim_scenario[scenario]),
+    "Real", CALCULATE([Sessions], Combined[Data_Source] = "Real"),
+    "Synthetic", CALCULATE([Sessions], Combined[Data_Source] = "Synthetic"),
+    "Combined", CALCULATE([Sessions], REMOVEFILTERS(Combined[Data_Source])),
+    BLANK()
+)
+
+// ---- Mean by Scenario   [format: 0.000]
+Mean by Scenario =
+SWITCH(
+    SELECTEDVALUE(dim_scenario[scenario]),
+    "Real", CALCULATE([Mean (selected)], Combined[Data_Source] = "Real"),
+    "Synthetic", CALCULATE([Mean (selected)], Combined[Data_Source] = "Synthetic"),
+    "Combined", CALCULATE([Mean (selected)], REMOVEFILTERS(Combined[Data_Source])),
+    BLANK()
+)
+
+// ---- Median by Scenario   [format: 0.000]
+Median by Scenario =
+SWITCH(
+    SELECTEDVALUE(dim_scenario[scenario]),
+    "Real", CALCULATE([Median (selected)], Combined[Data_Source] = "Real"),
+    "Synthetic", CALCULATE([Median (selected)], Combined[Data_Source] = "Synthetic"),
+    "Combined", CALCULATE([Median (selected)], REMOVEFILTERS(Combined[Data_Source])),
+    BLANK()
+)
+
+// ---- Std Dev by Scenario   [format: 0.000]
+Std Dev by Scenario =
+SWITCH(
+    SELECTEDVALUE(dim_scenario[scenario]),
+    "Real", CALCULATE([Std Dev (selected)], Combined[Data_Source] = "Real"),
+    "Synthetic", CALCULATE([Std Dev (selected)], Combined[Data_Source] = "Synthetic"),
+    "Combined", CALCULATE([Std Dev (selected)], REMOVEFILTERS(Combined[Data_Source])),
+    BLANK()
+)
+
+// ---- Variance by Scenario   [format: 0.000]
+Variance by Scenario =
+SWITCH(
+    SELECTEDVALUE(dim_scenario[scenario]),
+    "Real", CALCULATE([Variance (selected)], Combined[Data_Source] = "Real"),
+    "Synthetic", CALCULATE([Variance (selected)], Combined[Data_Source] = "Synthetic"),
+    "Combined", CALCULATE([Variance (selected)], REMOVEFILTERS(Combined[Data_Source])),
+    BLANK()
+)
+
+// ---- Min by Scenario   [format: 0.000]
+Min by Scenario =
+SWITCH(
+    SELECTEDVALUE(dim_scenario[scenario]),
+    "Real", CALCULATE([Min (selected)], Combined[Data_Source] = "Real"),
+    "Synthetic", CALCULATE([Min (selected)], Combined[Data_Source] = "Synthetic"),
+    "Combined", CALCULATE([Min (selected)], REMOVEFILTERS(Combined[Data_Source])),
+    BLANK()
+)
+
+// ---- Max by Scenario   [format: 0.000]
+Max by Scenario =
+SWITCH(
+    SELECTEDVALUE(dim_scenario[scenario]),
+    "Real", CALCULATE([Max (selected)], Combined[Data_Source] = "Real"),
+    "Synthetic", CALCULATE([Max (selected)], Combined[Data_Source] = "Synthetic"),
+    "Combined", CALCULATE([Max (selected)], REMOVEFILTERS(Combined[Data_Source])),
+    BLANK()
+)
+
+// ---- Q1 by Scenario   [format: 0.000]
+Q1 by Scenario =
+SWITCH(
+    SELECTEDVALUE(dim_scenario[scenario]),
+    "Real", CALCULATE([Q1 (selected)], Combined[Data_Source] = "Real"),
+    "Synthetic", CALCULATE([Q1 (selected)], Combined[Data_Source] = "Synthetic"),
+    "Combined", CALCULATE([Q1 (selected)], REMOVEFILTERS(Combined[Data_Source])),
+    BLANK()
+)
+
+// ---- Q3 by Scenario   [format: 0.000]
+Q3 by Scenario =
+SWITCH(
+    SELECTEDVALUE(dim_scenario[scenario]),
+    "Real", CALCULATE([Q3 (selected)], Combined[Data_Source] = "Real"),
+    "Synthetic", CALCULATE([Q3 (selected)], Combined[Data_Source] = "Synthetic"),
+    "Combined", CALCULATE([Q3 (selected)], REMOVEFILTERS(Combined[Data_Source])),
+    BLANK()
+)
+
+// ---- Purchase Rate by Scenario   [format: 0.000]
+Purchase Rate by Scenario =
+SWITCH(
+    SELECTEDVALUE(dim_scenario[scenario]),
+    "Real", CALCULATE([Purchase Rate], Combined[Data_Source] = "Real"),
+    "Synthetic", CALCULATE([Purchase Rate], Combined[Data_Source] = "Synthetic"),
+    "Combined", CALCULATE([Purchase Rate], REMOVEFILTERS(Combined[Data_Source])),
+    BLANK()
+)
+
+// ===== D. Python parity checks (values exported by notebook 07 in results/comparison/powerbi_tables) =====
+
+// ---- Mean (Python)   [format: 0.000]
+Mean (Python) =
+CALCULATE(MAX(stats_long[mean]), stats_long[column] = [Selected Metric], stats_long[scenario] = SELECTEDVALUE(dim_scenario[scenario]))
+
+// ---- Mean Difference (DAX - Python)   [format: 0.000000]
+// Should be 0 (to about 6 decimals). Any other value is a data-loading problem, for example a column read as Fixed decimal number.
+Mean Difference (DAX - Python) =
+[Mean by Scenario] - [Mean (Python)]
+
+// ---- Std Dev (Python)   [format: 0.000]
+Std Dev (Python) =
+CALCULATE(MAX(stats_long[std]), stats_long[column] = [Selected Metric], stats_long[scenario] = SELECTEDVALUE(dim_scenario[scenario]))
+
+// ---- Std Dev Difference (DAX - Python)   [format: 0.000000]
+// STDEV.S is the sample standard deviation, which is what pandas .std() returns, so the match is exact.
+Std Dev Difference (DAX - Python) =
+[Std Dev by Scenario] - [Std Dev (Python)]
+
+// ===== E. Box-style chart pieces (built from box_stats_long so the quartiles equal Python's) =====
+
+// ---- Box Q1   [format: 0.000]
+// Stacked column series 1: set Fill to transparent / no colour.
+Box Q1 =
+MAX(box_stats_long[q1])
+
+// ---- Box Q1 to Median   [format: 0.000]
+// Stacked column series 2.
+Box Q1 to Median =
+MAX(box_stats_long[median]) - MAX(box_stats_long[q1])
+
+// ---- Box Median to Q3   [format: 0.000]
+// Stacked column series 3.
+Box Median to Q3 =
+MAX(box_stats_long[q3]) - MAX(box_stats_long[median])
+
+// ---- Box Upper Fence   [format: 0.000]
+// Tooltip field: values above this are IQR outliers.
+Box Upper Fence =
+MAX(box_stats_long[upper_fence])
+
+// ---- Box Outlier Share   [format: 0.0%]
+Box Outlier Share =
+DIVIDE(MAX(box_stats_long[outlier_pct]), 100)
+
+// ===== F. Which variable differs most (scale-free, from Python stats) =====
+
+// ---- Mean % Difference (Synthetic vs Real)   [format: 0.0%]
+Mean % Difference (Synthetic vs Real) =
+VAR r = CALCULATE(MAX(stats_long[mean]), stats_long[scenario] = "Real")
+VAR s = CALCULATE(MAX(stats_long[mean]), stats_long[scenario] = "Synthetic")
+RETURN DIVIDE(s - r, r)
+
+// ---- Std Dev Ratio (Synthetic / Real)   [format: 0.00]
+Std Dev Ratio (Synthetic / Real) =
+VAR r = CALCULATE(MAX(stats_long[std]), stats_long[scenario] = "Real")
+VAR s = CALCULATE(MAX(stats_long[std]), stats_long[scenario] = "Synthetic")
+RETURN DIVIDE(s, r)
+
+// ===== G. Data check (row counts of the three loaded CSVs must agree) =====
+
+// ---- Rows Real table   [format: #,0]
+Rows Real table =
+COUNTROWS(Real)
+
+// ---- Rows Synthetic table   [format: #,0]
+Rows Synthetic table =
+COUNTROWS(Synthetic)
+
+// ---- Rows Combined table   [format: #,0]
+Rows Combined table =
+COUNTROWS(Combined)
+
+// ---- Row Check
+Row Check =
+IF([Rows Real table] + [Rows Synthetic table] = [Rows Combined table] && [Rows Real table] = CALCULATE(COUNTROWS(Combined), Combined[Data_Source] = "Real"), "OK", "MISMATCH")
